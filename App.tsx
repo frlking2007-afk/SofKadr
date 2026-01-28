@@ -7,7 +7,7 @@ import PostJobModal from './components/PostJobModal';
 import About from './components/About';
 import { Job, JobType, UserRole } from './types';
 import { INITIAL_JOBS } from './constants';
-import { Filter } from 'lucide-react';
+import { Filter, SearchX } from 'lucide-react';
 
 const App: React.FC = () => {
   // Global State
@@ -147,18 +147,33 @@ const App: React.FC = () => {
                       <JobCard key={job.id} job={job} />
                     ))
                   ) : (
-                    <div className="text-center py-20 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
-                      <p className="text-gray-500 dark:text-gray-400 text-lg">Hozircha mos keluvchi natijalar yo'q</p>
-                      <button 
-                        onClick={() => {
-                            setSearchQuery('');
-                            setLocationFilter('');
-                            setSelectedJobTypes([]);
-                        }}
-                        className="mt-4 text-blue-600 dark:text-blue-400 hover:underline"
-                      >
-                        Filtrlarni tozalash
-                      </button>
+                    <div className="flex flex-col items-center justify-center py-24 px-4 text-center bg-white dark:bg-gray-900 rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 transition-all duration-300 hover:border-gray-400 dark:hover:border-gray-600 group">
+                        
+                        {/* Illustration Container */}
+                        <div className="relative mb-6">
+                            <div className="absolute inset-0 bg-blue-100 dark:bg-blue-900/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div className="relative bg-gray-50 dark:bg-gray-800 p-6 rounded-full ring-1 ring-gray-100 dark:ring-gray-700 group-hover:scale-110 transition-transform duration-500 ease-out">
+                                <SearchX size={48} className="text-gray-400 dark:text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300" />
+                            </div>
+                        </div>
+
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            Afsuski, hech narsa topilmadi
+                        </h3>
+                        <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-8 leading-relaxed">
+                            Qidiruv so'rovingiz bo'yicha vakansiyalar mavjud emas. Filtrlarni o'zgartirib yoki boshqa kalit so'zlar bilan urinib ko'ring.
+                        </p>
+
+                        <button 
+                            onClick={() => {
+                                setSearchQuery('');
+                                setLocationFilter('');
+                                setSelectedJobTypes([]);
+                            }}
+                            className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-black dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95"
+                        >
+                            Filtrlarni tozalash
+                        </button>
                     </div>
                   )}
                 </div>
