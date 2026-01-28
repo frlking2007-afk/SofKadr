@@ -69,10 +69,39 @@ const App: React.FC = () => {
       // 3. Job Type
       const matchesType = selectedJobTypes.length === 0 || selectedJobTypes.includes(job.type);
 
-      // 4. Salary (Simple logic for demo)
+      // 4. Salary Logic (Range Intersection)
       let matchesSalary = true;
       if (selectedSalary !== 'all') {
-          matchesSalary = true; 
+          // Extract numbers from salary string like "$1,000 - $2,000" or "$3,500+"
+          const cleanSalary = job.salary.replace(/,/g, '');
+          const numbers = cleanSalary.match(/\d+/g)?.map(Number);
+          
+          if (numbers && numbers.length > 0) {
+             const min = numbers[0];
+             const max = numbers.length > 1 ? numbers[1] : min;
+             
+             switch(selectedSalary) {
+                case 'under_500':
+                   // Job min salary is under 500
+                   matchesSalary = min <= 500;
+                   break;
+                case '500_1000':
+                   // Check for overlap: [min, max] overlaps with [500, 1000]
+                   // Formula: startA <= endB && endA >= startB
+                   matchesSalary = min <= 1000 && max >= 500;
+                   break;
+                case '1000_2000':
+                   // Check for overlap with [1000, 2000]
+                   matchesSalary = min <= 2000 && max >= 1000;
+                   break;
+                case '2000_plus':
+                   // Job max salary is at least 2000
+                   matchesSalary = max >= 2000;
+                   break;
+                default:
+                   matchesSalary = true;
+             }
+          }
       }
 
       return matchesSearch && matchesLocation && matchesType && matchesSalary;
@@ -169,6 +198,7 @@ const App: React.FC = () => {
                                 setSearchQuery('');
                                 setLocationFilter('');
                                 setSelectedJobTypes([]);
+                                setSelectedSalary('all');
                             }}
                             className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-black dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95"
                         >
