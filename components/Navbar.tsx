@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Menu, X, Moon, Sun, UserCircle } from 'lucide-react';
+import { Menu, X, Moon, Sun, UserCircle, Briefcase } from 'lucide-react';
 import { UserRole } from '../types';
-import logo from '../sofkadr.jpg';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -31,13 +30,11 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* Logo */}
           <div 
             onClick={() => onNavigate('home')}
-            className="flex-shrink-0 flex items-center gap-2 cursor-pointer"
+            className="flex-shrink-0 flex items-center gap-2 cursor-pointer group"
           >
-            <img 
-              src={logo} 
-              alt="Sof Kadr" 
-              className="h-10 w-auto rounded-lg object-contain"
-            />
+            <div className="w-10 h-10 bg-black dark:bg-white rounded-lg flex items-center justify-center text-white dark:text-black shadow-sm group-hover:scale-105 transition-transform duration-200">
+              <Briefcase size={20} strokeWidth={2.5} />
+            </div>
             <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-white hidden sm:block">
               Sof Kadr
             </span>
