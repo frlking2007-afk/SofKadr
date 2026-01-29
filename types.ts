@@ -1,14 +1,9 @@
 export enum JobType {
-  FULL_TIME = 'To\'liq bandlik',
-  PART_TIME = 'Yarim kunlik',
+  FULL_TIME = 'To\'liq kun',
+  PART_TIME = 'Yarim kun',
   REMOTE = 'Masofaviy',
-  INTERNSHIP = 'Stajirovka',
-  CONTRACT = 'Shartnoma asosida'
-}
-
-export enum UserRole {
-  SEEKER = 'SEEKER',
-  EMPLOYER = 'EMPLOYER'
+  INTERNSHIP = 'Amaliyot',
+  PROJECT = 'Loyiha ishi'
 }
 
 export interface Job {
@@ -16,17 +11,20 @@ export interface Job {
   title: string;
   company: string;
   location: string;
-  salary: string;
+  salaryRange: string;
   type: JobType;
-  tags: string[];
-  postedAt: Date;
   description: string;
-  logoUrl?: string;
+  postedAt: Date;
+  tags: string[];
 }
 
 export interface FilterState {
-  searchQuery: string;
+  search: string;
   location: string;
-  jobTypes: JobType[];
-  salaryRange: string; // Simplified for UI demo
+  type: string[];
+}
+
+export enum UserRole {
+  SEEKER = 'SEEKER', // Ish qidiruvchi
+  EMPLOYER = 'EMPLOYER' // Ish beruvchi
 }
